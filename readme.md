@@ -12,13 +12,13 @@ It uses `node v18.13.0`. Can be applied with `nvm use`.
 npm init @eslint/config -- --config semistandard
 ```
 
-* Run
+* Run eslint all files
 
 ```bash
 npx eslint .
 ```
 
-* Quick fix
+* Quick fix all files
 
 ```bash
 npx eslint . --fix
