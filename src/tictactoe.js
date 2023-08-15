@@ -1,10 +1,13 @@
+const { Board } = require('./board.js');
+
 class TicTacToe {
   constructor () {
     this.size = 3;
+    this.board = new Board(this.size);
   }
 
   run () {
-    console.log('hello');
+    this.board.print();
   }
 }
 
