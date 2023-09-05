@@ -19,5 +19,8 @@
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
   }
 }
