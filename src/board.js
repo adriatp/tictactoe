@@ -91,8 +91,8 @@ class Board {
   }
 
   print () {
-    for (let i = this.size; i--;) {
-      for (let j = this.size; j--;) {
+    for (let i=0; i<this.size; i++) {
+      for (let j=0; j<this.size; j++) {
         if (this.matrix[i][j] === null) {
           process.stdout.write('_');
         } else {
