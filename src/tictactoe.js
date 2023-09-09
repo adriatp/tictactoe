@@ -3,7 +3,7 @@ const { Player } = require('./player.js');
 class TicTacToe {
   constructor () {
     this.size = 3;
-    this.players = [ new Player('X', 'asdf'), new Player('O') ]
+    this.players = [ new Player('X', 0, 'keyboard'), new Player('O', 1) ]
     this.board = new Board(this.size);
     this.turn = 0;
     this.current_player_position = 0;
@@ -12,7 +12,7 @@ class TicTacToe {
   run () {
     while(!this.board.finished()) {
       let current_player = this.players[this.current_player_position];
-      current_player.move(this.board);
+      current_player.move(this.board, players);
       this.board.print();
       console.log('\n');
       if (!this.board.finished()) {
