@@ -17,33 +17,31 @@ class Player {
 			this.random_move(board);
 	}
 
-	minimax_move(board, players, original_position) {
-		// Get next player
+	next_player(players) {
 		let next_player_position = this.position + 1;
 		if (next_player_position == players.length) 
 			next_player_position = 0;
-		let next_player = players[next_player_position];
-		// Minimax
+		return players[next_player_position];
+	}
+
+	minimax_move(board, players, original_position) {
+		let next_player = this.next_player(players);
 		let empty_cells = board.empty_cells();
-		let max_val = -1;
+		let max_val = null;
 		let max_cell = null;
+		let val = null;
 		for (let i=0; i<empty_cells.length; i++) {
 			board.matrix[empty_cells[i][0]][empty_cells[i][1]] = this.piece;
-			if (board.win()) {
-				board.matrix[empty_cells[i][0]][empty_cells[i][1]] = null;
-				return this.position == original_position ? 1 : -1;
-			} 
-			else if (board.full()) {
-				board.matrix[empty_cells[i][0]][empty_cells[i][1]] = null;
-				return 0;
-			}
-			else {
-				return this.minimax_move(board, players, original_position);
-			}
+			if (board.win())
+				val = [this.position == original_position ? 1 : -1, empty_cells[i]];
+			else if (board.full())
+				val = [0, empty_cells[i]];
+			else 
+				val = next_player.minimax_move(board, players, this.position);
+			board.matrix[empty_cells[i][0]][empty_cells[i][1]] = null;
+			if (val[0] == 1 || val[0] == -1) break;
 		}
-		// Mirar les celes que falta un
-		// Mirar les celes que en falten dos
-		// Mirar les celes que en faltes 3
+		return [max_val, max_cell];
 	}
 
 	keyboard_move(board) {
