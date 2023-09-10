@@ -12,7 +12,7 @@ class Board {
   }
 
   full () {
-    return this.empty_cells().length == 0;
+    return this.empty_cells().length === 0;
   }
 
   win () {
@@ -53,8 +53,9 @@ class Board {
 
   diag_same_color () {
     const firstColor = this.matrix[0][0];
-    if (firstColor === null)
+    if (firstColor === null) {
       return false;
+    }
     for (let k = 0; k < this.size; k++) {
       if (firstColor !== this.matrix[k][k]) {
         return false;
@@ -65,10 +66,11 @@ class Board {
 
   cdiag_same_color () {
     let i = 0;
-    let j = this.size-1;
+    let j = this.size - 1;
     const firstColor = this.matrix[i][j];
-    if (firstColor === null)
+    if (firstColor === null) {
       return false;
+    }
     while (i < this.size) {
       if (firstColor !== this.matrix[i][j]) {
         return false;
@@ -78,21 +80,21 @@ class Board {
     return true;
   }
 
-  empty_cells() {
-    let empty_cells = [];
-    for (let i=0; i<this.size; i++) {
-      for (let j=0; j<this.size; j++) {
+  empty_cells () {
+    const emptyCells = [];
+    for (let i = 0; i < this.size; i++) {
+      for (let j = 0; j < this.size; j++) {
         if (this.matrix[i][j] === null) {
-          empty_cells.push([i,j]);
+          emptyCells.push([i, j]);
         }
       }
     }
-    return empty_cells;
+    return emptyCells;
   }
 
   print () {
-    for (let i=0; i<this.size; i++) {
-      for (let j=0; j<this.size; j++) {
+    for (let i = 0; i < this.size; i++) {
+      for (let j = 0; j < this.size; j++) {
         if (this.matrix[i][j] === null) {
           process.stdout.write('_');
         } else {
