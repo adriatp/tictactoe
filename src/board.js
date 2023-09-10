@@ -92,6 +92,19 @@ class Board {
     return emptyCells;
   }
 
+  winning_moves (piece) {
+    const emptyCells = this.empty_cells();
+    const winningMoves = [];
+    for (let i = 0; i < emptyCells.length; i++) {
+      this.matrix[emptyCells[i][0]][emptyCells[i][1]] = piece;
+      if (this.win()) {
+        winningMoves.push(emptyCells[i]);
+      }
+      this.matrix[emptyCells[i][0]][emptyCells[i][1]] = null;
+    }
+    return winningMoves;
+  }
+
   print () {
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
