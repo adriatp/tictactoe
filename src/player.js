@@ -26,35 +26,32 @@ class Player {
     const minimaxValues = [];
     for (let i = 0; i < emptyCells.length; i++) {
       board.matrix[emptyCells[i][0]][emptyCells[i][1]] = this.piece;
-      const minimaxVal = this.minimax_move(board, players, this.position);
+      const minimaxVal = this.minimax_move_rec(board, players, this.position);
       minimaxValues.push(minimaxVal);
       board.matrix[emptyCells[i][0]][emptyCells[i][1]] = null;
     }
     const maxMinimaxIdx = minimaxValues.indexOf(Math.max(...minimaxValues));
-
     return emptyCells[maxMinimaxIdx];
   }
 
   minimax_move_rec (board, players, originalPosition) {
+    if (board.win()) return this.position === originalPosition ? 1 : -1;
+    if (board.full()) return 0;
     const emptyCells = board.empty_cells();
     const nextPlayer = this.next_player(players);
-    const winningMoves = board.winning_moves(this.piece);
-    if (winningMoves.length > 0) {
-      return this.position === originalPosition ? 1 : -1;
-    } else if (emptyCells.length === 1) {
-      return emptyCells[0];
+    let i = 0;
+    const minimaxValues = [];
+    while (i < emptyCells.length) {
+      board.matrix[emptyCells[i][0]][emptyCells[i][1]] = nextPlayer.piece;
+      const minimaxVal = nextPlayer.minimax_move_rec(board, players, originalPosition);
+      minimaxValues.push(minimaxVal);
+      board.matrix[emptyCells[i][0]][emptyCells[i][1]] = null;
+      i++;
+    }
+    if (this.position === originalPosition) {
+      return Math.min(...minimaxValues);
     } else {
-      let i = 0;
-      const minimaxValues = [];
-      while (i < emptyCells.length) {
-        board.matrix[emptyCells[i][0]][emptyCells[i][1]] = this.piece;
-        const minimaxVal = nextPlayer.minimax_move(board, players, originalPosition);
-        if (this.minmaxVal !== 0) return minimaxVal;
-        minimaxValues.push(minimaxVal);
-        board.matrix[emptyCells[i][0]][emptyCells[i][1]] = null;
-        i++;
-      }
-      return 0;
+      return Math.max(...minimaxValues);
     }
   }
 
