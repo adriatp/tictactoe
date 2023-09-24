@@ -27,6 +27,7 @@ class Player {
     for (let i = 0; i < emptyCells.length; i++) {
       board.matrix[emptyCells[i][0]][emptyCells[i][1]] = this.piece;
       const minimaxVal = this.minimax_move_rec(board, players, this.position);
+      if (minimaxVal === 1) return emptyCells[i];
       minimaxValues.push(minimaxVal);
       board.matrix[emptyCells[i][0]][emptyCells[i][1]] = null;
     }
